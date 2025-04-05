@@ -1,6 +1,6 @@
 import { Pool } from "pg";
 
-let pool: Pool;
+var pool: Pool;
 
 declare global {
   // Allow global `pool` reuse across hot reloads

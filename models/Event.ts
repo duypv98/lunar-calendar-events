@@ -19,6 +19,9 @@ export default class Event {
   recurring_date: number | null;
   recurring_month: number | null;
   deleted_at: number | null;
+  leap_month: boolean;
+  user_id: number;
+  is_lunar: boolean;
 
   constructor(data: Partial<Event> = {}) {
     this.id = data.id ?? 0;
@@ -33,5 +36,8 @@ export default class Event {
     this.recurring_date = data.recurring_date ?? null;
     this.recurring_month = data.recurring_month ?? null;
     this.deleted_at = data.deleted_at ?? null;
+    this.leap_month = data.leap_month ?? false;
+    this.user_id = data.user_id ?? 0;
+    this.is_lunar = data.is_lunar ?? false;
   }
 }

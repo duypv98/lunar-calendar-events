@@ -8,14 +8,17 @@
   },
   "dependencies": {
     "@nghiavuive/lunar_date_vi": "^2.0.1",
+    "axios": "^1.8.4",
     "bcryptjs": "^3.0.2",
     "classnames": "^2.5.1",
+    "lodash": "^4.17.21",
     "moment": "^2.30.1",
     "next": "^15.2.4",
     "next-auth": "^4.24.11",
     "node-pg-migrate": "7.6.1",
     "pg": "^8.14.1",
     "postcss": "^8.5.3",
+    "query-string": "^9.1.1",
     "react": "^19.1.0",
     "react-big-calendar": "^1.18.0",
     "react-dom": "^19.1.0",
@@ -23,6 +26,7 @@
     "sass": "^1.86.3"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.16",
     "@types/node": "22.14.0",
     "@types/pg": "^8.11.11",
     "@types/react": "19.1.0",

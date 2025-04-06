@@ -3,11 +3,13 @@
 @tailwind utilities;
 
 @import "react-big-calendar/lib/css/react-big-calendar.css";
+@import 'react-toastify/dist/ReactToastify.css';
 
 body {
   .rbc-toolbar-label {
     text-transform: capitalize;
   }
+
   .rbc-date-cell {
     display: flex;
     justify-content: center;

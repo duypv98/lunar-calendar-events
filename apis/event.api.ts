@@ -5,11 +5,14 @@ import { getNextEndpoint } from "@/utils/nextApi";
 export const apiGetEvents = async (args: {
   startDate: number;
   endDate: number;
+  signal?: AbortSignal;
 }): Promise<Event[]> => {
+  const { signal, ...params } = args;
   const { data, error } = await get({
     endpoint: getNextEndpoint("/api/events"),
-    params: args,
-    withCredentials: true
+    params,
+    withCredentials: true,
+    signal
   });
   return error ? [] : data;
 }

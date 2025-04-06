@@ -7,7 +7,7 @@ import moment from 'moment';
 import "moment/locale/vi";
 import { useSession } from "next-auth/react";
 import { title } from "process";
-import { startTransition, useEffect, useMemo, useOptimistic, useState } from "react";
+import { startTransition, useEffect, useMemo, useOptimistic, useRef, useState } from "react";
 import { Calendar, CalendarProps, momentLocalizer } from "react-big-calendar";
 const localizer = momentLocalizer(moment);
 
@@ -19,6 +19,7 @@ const MainCalendar = () => {
     start: moment().startOf("month").toDate(),
     end: moment().endOf("month").toDate()
   });
+  const getEventController = useRef<AbortController | null>(null);
   const lunarYears = useMemo(() => {
     const startDate = Array.isArray(range) ? range[0] : range.start;
     const endDate = (Array.isArray(range) ? range[1] : range.end) || startDate;
@@ -49,9 +50,12 @@ const MainCalendar = () => {
     if (status !== "authenticated" || isNaN(userId) || !userId) return;
     const startDate = Array.isArray(range) ? range[0] : range.start;
     const endDate = (Array.isArray(range) ? range[1] : range.end) || startDate;
+    const controller = new AbortController();
+    getEventController.current = controller;
     apiGetEvents({
       startDate: startDate.getTime(),
-      endDate: endDate.getTime()
+      endDate: endDate.getTime(),
+      signal: controller.signal
     }).then((events) => {
       startTransition(() => {
         setEvents(events);
@@ -65,6 +69,9 @@ const MainCalendar = () => {
         className="bg-white"
         localizer={localizer}
         onRangeChange={(range) => {
+          if (getEventController.current) {
+            getEventController.current.abort();
+          }
           setRange(range);
         }}
         events={events.flatMap((e) => {
